@@ -31,7 +31,7 @@ public class Player {
     }  
     
     public void move(int dx, int dy) {
-        if((y+dy)>0&&(y+dy)<735){
+        if((y+dy)>0 && (y+dy)<735 && (x+dx)<860 && (x+dx)>100){
             x += dx;
             y += dy;
         }
