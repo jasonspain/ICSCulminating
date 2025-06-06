@@ -31,7 +31,7 @@ public class MySketch extends PApplet {
         textSize(20);
         player = new Player(this, 468, 605, "images/player.png");
         nian = new Nian(this, 323, 0, "images/nianIdle.png");
-        hp = new HpBar(this, 60, 10, 25);
+        hp = new HpBar(this, 60, 10, 100);
     }
 
     public void draw() {
@@ -64,5 +64,14 @@ public class MySketch extends PApplet {
         } else {
             player.move(0, 0);
         }
+        
+        damage();
+    }
+    
+    public void damage() {
+        if (player.isCollidingWith(nian)) {
+            hp.damage();
+        }
+
     }
 }//end class

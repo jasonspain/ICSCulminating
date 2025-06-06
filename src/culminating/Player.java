@@ -17,6 +17,7 @@ public class Player {
     private PImage image;
     private PApplet app;
     private int currentFrame, sx, sy, row;
+    private int delay;
     private static final int HEIGHT = 64;
     private static final int WIDTH = 64;
 
@@ -26,7 +27,8 @@ public class Player {
         this.y = y;
         this.image = app.loadImage(imagePath);
         this.currentFrame = 0;
-        this.row = 0;
+        this.row = 40;
+        this.delay=5;
         sx = 0;
         sy = 0;
     }
@@ -48,38 +50,47 @@ public class Player {
     }
 
     public void move(int dx, int dy) {
-        int m = app.millis();
-        if ((y + dy) > 0 && (y + dy) < 735 && (x + dx) < 860 && (x + dx) > 100) {
+        if ((y + dy) > 0 && (y + dy) < 735 && (x + dx) < 840 && (x + dx) > 100) {
             x += dx;
             y += dy;
         }
         if (dx > 0) {
-            row = 11;
+            row = 41;
         }
         if (dx < 0) {
-            row = 9;
+            row = 39;
         }
         if (dy > 0) {
-            row = 10;
+            row = 40;
         }
         if (dy < 0) {
-            row = 8;
+            row = 38;
         }
-        if (dx == 0 && dy == 0) {
-            currentFrame = 0;
-        }
+        
         sx = currentFrame * WIDTH;
         sy = row * HEIGHT;
 
-        if (m % 2 == 0) {
-            currentFrame++;
+        if (delay == 0) {
+            currentFrame = (currentFrame+1)%8;
         }
-
-        if (currentFrame == 9) {
+        
+        delay=(delay+1)%5;
+        
+        if (dx == 0 && dy == 0) {
             currentFrame = 0;
+            if(row>11){
+                row=row-30;
+            }
         }
     }
+    public boolean isCollidingWith(Nian other) {
+        boolean isLeftOfOtherRight = x < other.getX() + other.getWIDTH();
+        boolean isRightOfLeft = x + WIDTH > other.getX();
+        boolean isAboveOtherBottom = y+HEIGHT < other.getY() + other.getHEIGHT();
+        boolean isBelowOtherTop = y + HEIGHT > other.getY();
 
+        return isLeftOfOtherRight && isRightOfLeft && isAboveOtherBottom && isBelowOtherTop;
+    }
     public void displayInfo(PApplet p) {
         app.fill(0);
         app.text("X: " + x, x, y - 50);
