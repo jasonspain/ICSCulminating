@@ -17,5 +17,5 @@ public class Culminating {
         // TODO code application logic here
         MySketch.main("culminating.MySketch");
     }
-    
+
 }
