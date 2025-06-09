@@ -12,20 +12,20 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 public class Player {
-
     private int x, y;
     private PImage image;
+    private int height,width;
     private PApplet app;
     private int currentFrame, sx, sy, row;
     private int delay;
-    private static final int HEIGHT = 64;
-    private static final int WIDTH = 64;
 
     public Player(PApplet p, int x, int y, String imagePath) {
         this.app = p;
         this.x = x;
         this.y = y;
         this.image = app.loadImage(imagePath);
+        this.height=64;
+        this.width=64;
         this.currentFrame = 0;
         this.row = 40;
         this.delay=5;
@@ -41,12 +41,12 @@ public class Player {
         return y;
     }
 
-    public int getHEIGHT() {
-        return HEIGHT;
+    public int getHeight() {
+        return height;
     }
 
-    public int getWIDTH() {
-        return WIDTH;
+    public int getWidth() {
+        return width;
     }
 
     public void move(int dx, int dy) {
@@ -67,8 +67,8 @@ public class Player {
             row = 38;
         }
         
-        sx = currentFrame * WIDTH;
-        sy = row * HEIGHT;
+        sx = currentFrame * width;
+        sy = row * height;
 
         if (delay == 0) {
             currentFrame = (currentFrame+1)%8;
@@ -83,11 +83,11 @@ public class Player {
             }
         }
     }
-    public boolean isCollidingWith(Nian other) {
-        boolean isLeftOfOtherRight = x < other.getX() + other.getWIDTH();
-        boolean isRightOfLeft = x + WIDTH > other.getX();
-        boolean isAboveOtherBottom = y+HEIGHT < other.getY() + other.getHEIGHT();
-        boolean isBelowOtherTop = y + HEIGHT > other.getY();
+    public boolean isCollidingWith(Hurtbox other) {
+        boolean isLeftOfOtherRight = (x + 15) <= other.getX() + other.getWidth();
+        boolean isRightOfLeft = (x + 15)+ (width - 30) >= other.getX();
+        boolean isAboveOtherBottom = (y + 12)+(height - 12) <= other.getY() + other.getHeight();
+        boolean isBelowOtherTop = (y + 12) + (height - 12) >= other.getY();
 
         return isLeftOfOtherRight && isRightOfLeft && isAboveOtherBottom && isBelowOtherTop;
     }
@@ -99,8 +99,8 @@ public class Player {
 
     public void draw() {
         app.fill(255, 0, 0);
-        app.rect(x + 15, y + 12, WIDTH - 30, HEIGHT - 12);
-        app.copy(image, sx, sy, WIDTH, HEIGHT, x, y, WIDTH, HEIGHT);
+        app.rect(x + 15, y + 12, width - 30, height - 12);
+        app.copy(image, sx, sy, width, height, x, y, width, height);
     }
 
 }

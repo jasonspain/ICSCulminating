@@ -11,60 +11,80 @@ package culminating;
 import processing.core.PApplet;
 import processing.core.PImage;
 
-public class Nian {
-    private int x,y;
-    private PImage image;
-    private PApplet app;
-    private int currentFrame,sx,sy,row;
+public class Nian extends Enemy{
+    private int currentFrame,totalFrames, sx, sy, row;
     private int delay;
-    private static final int HEIGHT= 240;
-    private static final int WIDTH= 354;
+    private Hurtbox hurtbox2;
 
-public Nian(PApplet p, int x, int y, String imagePath) {
-    this.app = p;
-    this.x = x;
-        this.y = y;
-        this.image = app.loadImage(imagePath);
+    public Nian(PApplet p, int x, int y, String imagePath) {
+        super(p,x, y, imagePath);
+        this.height = 294;
+        this.width = 378;
         this.currentFrame = 0;
-        this.row = 0;
-        this.delay=5;
+        this.totalFrames = 8;
+        this.row = 1;
+        this.delay = 5;
         sx = 0;
         sy = 0;
-    }
-        
-    public int getX(){
-        return x;
+        this.hurtbox1= new Hurtbox(x,y+140,width/2,height-160);
+        this.hurtbox2= new Hurtbox(x+(width/2),y+20,width/2,height-40);
     }
     
-    public int getY(){
-        return y;
+    public Hurtbox getHurtbox2(){
+        return hurtbox2;
     }
     
-    public int getHEIGHT(){
-        return HEIGHT;
-    }
-    
-    public int getWIDTH() {
-        return WIDTH;
-    }
-    
-    public void draw() {   
-        sx=currentFrame*WIDTH;
-        sy=row*HEIGHT;
-        
-        if(delay==0){
-            currentFrame++;
-            if (currentFrame == 5 && row == 0) {
-                currentFrame = 0;
-                row = 1;
-            } else if (currentFrame == 3 && row == 1) {
-                currentFrame = 0;
-                row = 0;
+    public void chase(int playerx,int playery, boolean chasing){
+        if(chasing){
+            totalFrames=7;
+            if(playerx<(x+width/2)){
+                x-=2;
+                hurtbox1.changeX(-2);
+                hurtbox2.changeX(-2);
+                flipHurtbox(false);
+                row=2;
+            }
+            if(playerx+64>(x+width/2)){
+                x += 2;
+                hurtbox1.changeX(2);
+                hurtbox2.changeX(2);
+                flipHurtbox(true);
+                row=3;
+            }
+            if(playery<y){
+                y -= 2;
+                hurtbox1.changeY(-2);
+                hurtbox2.changeY(-2);
+            }
+            if((playery+100)>(y+height)){
+                y += 2;
+                hurtbox1.changeY(2);
+                hurtbox2.changeY(2);
             }
         }
-        
-        delay=(delay+1)%5;
-        app.copy(image, sx, sy, WIDTH, HEIGHT, x, y, WIDTH, HEIGHT);
+    }
+    
+    public void flipHurtbox(boolean direction){
+        if(direction){
+            hurtbox1.setX(x);
+            hurtbox2.setX(x+(width/2));
+        }else{
+            hurtbox1.setX(x+(width/2));
+            hurtbox2.setX(x);
+        }
+    }
+    
+    public void draw() {
+        sx = currentFrame * width;
+        sy = row * height;
+
+        if (delay == 0) {
+            currentFrame=(currentFrame+1)%totalFrames;
+        }
+
+        delay = (delay + 1) % 5;
+        hurtbox1.draw(app);
+        hurtbox2.draw(app);
+        app.copy(image, sx, sy, width, height, x, y, width, height);
     }
 }
-

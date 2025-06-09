@@ -13,7 +13,7 @@ import processing.core.PImage;
 import processing.core.PApplet;
 
 public class MySketch extends PApplet {
-
+    public PApplet MySketchP = this;
     private Player player;
     private HpBar hp;
     private Nian nian;
@@ -29,21 +29,21 @@ public class MySketch extends PApplet {
     public void setup() {
         background(255);
         textSize(20);
-        player = new Player(this, 468, 605, "images/player.png");
-        nian = new Nian(this, 323, 0, "images/nianIdle.png");
-        hp = new HpBar(this, 60, 10, 100);
+        player = new Player(MySketchP, 468, 605, "images/player.png");
+        nian = new Nian(MySketchP, 323, 0, "images/nian.png");
+        hp = new HpBar(MySketchP, 60, 10, 100);
     }
 
     public void draw() {
         background(bg);
-        if (nian.getY() + nian.getHEIGHT() > player.getY() + player.getHEIGHT()) {
+        if (nian.getY() + nian.getHeight() > player.getY() + player.getHeight()) {
             player.draw();
             nian.draw();
         } else {
             nian.draw();
             player.draw();
         }
-
+        nian.chase(player.getX(),player.getY(),true);
         image(bgTop, 0, 0);
         hp.draw();
         player.displayInfo(this);
@@ -69,9 +69,11 @@ public class MySketch extends PApplet {
     }
     
     public void damage() {
-        if (player.isCollidingWith(nian)) {
-            hp.damage();
+        Hurtbox[] hurtboxes = {nian.getHurtbox1(),nian.getHurtbox2()};
+        for(int i=0;i<hurtboxes.length;i++){
+            if (player.isCollidingWith(hurtboxes[i])) {
+                hp.damage();
+            }
         }
-
     }
 }//end class
