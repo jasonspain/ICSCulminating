@@ -29,8 +29,8 @@ public class Player {
         this.currentFrame = 0;
         this.row = 40;
         this.delay=5;
-        sx = 0;
-        sy = 0;
+        this.sx = 0;
+        this.sy = 0;
     }
 
     public int getX() {

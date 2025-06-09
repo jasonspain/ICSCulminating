@@ -35,6 +35,7 @@ public class HpBar {
     public void draw() {
         app.fill(0);
         app.text("HP", x - 40, y + 20);
+        app.noStroke();
         app.fill(255);
         app.rect(x, y, 200, 30);
         app.fill(255, 0, 0);

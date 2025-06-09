@@ -14,6 +14,7 @@ import processing.core.PImage;
 public class Nian extends Enemy{
     private int currentFrame,totalFrames, sx, sy, row;
     private int delay;
+    private int hp;
     private Hurtbox hurtbox2;
 
     public Nian(PApplet p, int x, int y, String imagePath) {
@@ -24,10 +25,11 @@ public class Nian extends Enemy{
         this.totalFrames = 8;
         this.row = 1;
         this.delay = 5;
-        sx = 0;
-        sy = 0;
+        this.sx = 0;
+        this.sy = 0;
         this.hurtbox1= new Hurtbox(x,y+140,width/2,height-160);
         this.hurtbox2= new Hurtbox(x+(width/2),y+20,width/2,height-40);
+        this.hp=100;
     }
     
     public Hurtbox getHurtbox2(){
@@ -61,6 +63,15 @@ public class Nian extends Enemy{
                 hurtbox1.changeY(2);
                 hurtbox2.changeY(2);
             }
+        }else{
+            if(playerx<(x+width/2)){
+                flipHurtbox(false);
+                row=0;
+            }
+            if(playerx+64>(x+width/2)){
+                flipHurtbox(true);
+                row=1;
+            }
         }
     }
     
@@ -86,5 +97,11 @@ public class Nian extends Enemy{
         hurtbox1.draw(app);
         hurtbox2.draw(app);
         app.copy(image, sx, sy, width, height, x, y, width, height);
+        app.fill(255);
+        app.strokeWeight(5);
+        app.stroke(0);
+        app.rect( x, y+50,4*hp,10,5);
+        app.fill(255,0,0);
+        app.rect( x, y+50,4*hp,10,5);
     }
 }

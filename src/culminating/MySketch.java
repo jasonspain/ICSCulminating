@@ -17,6 +17,7 @@ public class MySketch extends PApplet {
     private Player player;
     private HpBar hp;
     private Nian nian;
+    private PowerUps power;
     PImage bg;
     PImage bgTop;
 
@@ -43,7 +44,7 @@ public class MySketch extends PApplet {
             nian.draw();
             player.draw();
         }
-        nian.chase(player.getX(),player.getY(),true);
+        nian.chase(player.getX(),player.getY(),false);
         image(bgTop, 0, 0);
         hp.draw();
         player.displayInfo(this);
@@ -75,5 +76,11 @@ public class MySketch extends PApplet {
                 hp.damage();
             }
         }
+    }
+    
+    public void spawnPowerUps(PowerUps power) {
+        int randX = round(random(110, 800));
+        int randY = round(random(80, 650));
+        power = new PowerUps(this,randX,randY);
     }
 }//end class
