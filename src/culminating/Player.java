@@ -91,6 +91,16 @@ public class Player {
 
         return isLeftOfOtherRight && isRightOfLeft && isAboveOtherBottom && isBelowOtherTop;
     }
+    
+    public boolean isCollidingWith(PowerUps other) {
+        boolean isLeftOfOtherRight = (x + 15) <= other.getX() + other.getWidth();
+        boolean isRightOfLeft = (x + 15)+ (width - 30) >= other.getX();
+        boolean isAboveOtherBottom = (y + 12) <= other.getY() + other.getHeight();
+        boolean isBelowOtherTop = (y + 12) + (height - 12) >= other.getY();
+
+        return isLeftOfOtherRight && isRightOfLeft && isAboveOtherBottom && isBelowOtherTop;
+    }
+    
     public void displayInfo(PApplet p) {
         app.fill(0);
         app.text("X: " + x, x, y - 50);

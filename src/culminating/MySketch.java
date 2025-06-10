@@ -33,10 +33,12 @@ public class MySketch extends PApplet {
         player = new Player(MySketchP, 468, 605, "images/player.png");
         nian = new Nian(MySketchP, 323, 0, "images/nian.png");
         hp = new HpBar(MySketchP, 60, 10, 100);
+        power = new PowerUps(this,-100,-100,"images/powerups.png");
     }
 
     public void draw() {
         background(bg);
+        power.draw();
         if (nian.getY() + nian.getHeight() > player.getY() + player.getHeight()) {
             player.draw();
             nian.draw();
@@ -67,6 +69,7 @@ public class MySketch extends PApplet {
         }
         
         damage();
+        powerup();
     }
     
     public void damage() {
@@ -77,10 +80,20 @@ public class MySketch extends PApplet {
             }
         }
     }
-    
-    public void spawnPowerUps(PowerUps power) {
-        int randX = round(random(110, 800));
-        int randY = round(random(80, 650));
-        power = new PowerUps(this,randX,randY);
+    public void powerup(){
+        if (player.isCollidingWith(power)) {
+            power.setX(-100);
+            power.setY(-100);
+            if (power.getSx() == 0) {
+            hp.heal();
+            } else if (power.getSx() == 64) {
+
+            } else if (power.getSx() == 128) {
+
+            } else {
+
+            }
+        }
+        
     }
 }//end class

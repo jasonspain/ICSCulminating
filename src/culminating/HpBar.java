@@ -24,6 +24,14 @@ public class HpBar {
         this.delay=20;
     }
     
+    public void heal() {
+        if((hp+30)<=100){
+            hp+=30;
+        }else if((hp+30)>=100){
+            hp=100;
+        }
+    }
+    
     public void damage(){
         if(delay==0 &&hp>0){
             hp-=10;
