@@ -64,7 +64,7 @@ public class PowerUps {
         if(delay==0){
             x = round(app.random(110, 800));
             y = round(app.random(80, 650));
-            sx = 0;
+            sx = 2*64;
         }
         
         app.copy(image, sx, 0, width, height, x, y, width, height);

@@ -46,7 +46,7 @@ public class MySketch extends PApplet {
             nian.draw();
             player.draw();
         }
-        nian.chase(player.getX(),player.getY(),false);
+        nian.chase(player.getX(),player.getY(),true);
         image(bgTop, 0, 0);
         hp.draw();
         player.displayInfo(this);
@@ -85,15 +85,31 @@ public class MySketch extends PApplet {
             power.setX(-100);
             power.setY(-100);
             if (power.getSx() == 0) {
-            hp.heal();
+                hp.heal();
             } else if (power.getSx() == 64) {
-
+                
             } else if (power.getSx() == 128) {
+                nian.damage();
+            } else if (power.getSx() == 192) {
 
-            } else {
-
+            }else{
+                
             }
         }
         
+    }
+    
+    public void powerupEffect(){
+        int timer =1;
+        if(timer!=0){
+            
+        }
+        if(timer<50){
+            timer++;
+        }else{
+            timer=0;
+        }
+        
+            
     }
 }//end class

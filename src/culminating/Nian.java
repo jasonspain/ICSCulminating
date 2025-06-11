@@ -36,6 +36,10 @@ public class Nian extends Enemy{
         return hurtbox2;
     }
     
+    public void damage() {
+        hp -=15;
+    }
+    
     public void chase(int playerx,int playery, boolean chasing){
         if(chasing){
             totalFrames=7;
@@ -92,7 +96,6 @@ public class Nian extends Enemy{
         if (delay == 0) {
             currentFrame=(currentFrame+1)%totalFrames;
         }
-
         delay = (delay + 1) % 5;
         hurtbox1.draw(app);
         hurtbox2.draw(app);
@@ -100,7 +103,7 @@ public class Nian extends Enemy{
         app.fill(255);
         app.strokeWeight(5);
         app.stroke(0);
-        app.rect( x, y+50,4*hp,10,5);
+        app.rect( x, y+50,400,10,5);
         app.fill(255,0,0);
         app.rect( x, y+50,4*hp,10,5);
     }
