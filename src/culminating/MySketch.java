@@ -17,7 +17,12 @@ public class MySketch extends PApplet {
     private Player player;
     private HpBar hp;
     private Nian nian;
+    private boolean chassing=false;
     private PowerUps power;
+    private boolean effect=false;
+    private String effectImage;
+    private int effectTimer = 0;
+    private int effectDuration=0;
     PImage bg;
     PImage bgTop;
 
@@ -46,10 +51,10 @@ public class MySketch extends PApplet {
             nian.draw();
             player.draw();
         }
-        nian.chase(player.getX(),player.getY(),true);
+        nian.chase(player.getX(),player.getY(),chassing);
         image(bgTop, 0, 0);
         hp.draw();
-        player.displayInfo(this);
+//        player.displayInfo(this);
 
         if (keyPressed) {
             if (keyCode == LEFT) {
@@ -70,6 +75,9 @@ public class MySketch extends PApplet {
         
         damage();
         powerup();
+        if(effect){
+            powerupEffect();
+        }
     }
     
     public void damage() {
@@ -86,12 +94,20 @@ public class MySketch extends PApplet {
             power.setY(-100);
             if (power.getSx() == 0) {
                 hp.heal();
+                effectImage = "images/healing.png";
+                effect = true;
+                effectDuration=50;
             } else if (power.getSx() == 64) {
                 
             } else if (power.getSx() == 128) {
-                nian.damage();
+                nian.damage(240);
+                effectImage = "images/explosion.png";
+                effect = true;
+                effectDuration=15;
             } else if (power.getSx() == 192) {
-
+                effectImage = "images/fire.png";
+                effect = true;
+                effectDuration=64;
             }else{
                 
             }
@@ -99,17 +115,24 @@ public class MySketch extends PApplet {
         
     }
     
-    public void powerupEffect(){
-        int timer =1;
-        if(timer!=0){
+    public void powerupEffect() {
+        if (effectTimer < effectDuration) {
+            if (effectImage.equals("images/explosion.png")) {
+                tint(255, 126);
+                image(loadImage(effectImage), nian.getX()-90,nian.getY()-100);
+            } else if (effectImage.equals("images/healing.png")) {
+                image(loadImage(effectImage), player.getX(), player.getY());
+            } else if(effectImage.equals("images/fire.png")){
+                nian.damage(2);
+                tint(255, 126);
+                image(loadImage(effectImage), nian.getX()-90,nian.getY()-90);
+            }
             
-        }
-        if(timer<50){
-            timer++;
+            effectTimer++;
         }else{
-            timer=0;
-        }
-        
+            effectTimer=0;
+            effect=false;
             
+        }
     }
 }//end class

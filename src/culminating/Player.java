@@ -57,7 +57,7 @@ public class Player {
         if (dx > 0) {
             row = 41;
         }
-        if (dx < 0) {
+            if (dx < 0) {
             row = 39;
         }
         if (dy > 0) {
@@ -100,16 +100,16 @@ public class Player {
 
         return isLeftOfOtherRight && isRightOfLeft && isAboveOtherBottom && isBelowOtherTop;
     }
-    
-    public void displayInfo(PApplet p) {
-        app.fill(0);
-        app.text("X: " + x, x, y - 50);
-        app.text("Y: " + y, x, y - 30);
-    }
+//    
+//    public void displayInfo(PApplet p) {
+//        app.fill(0);
+//        app.text("X: " + x, x, y - 50);
+//        app.text("Y: " + y, x, y - 30);
+//    }
 
     public void draw() {
-        app.fill(255, 0, 0);
-        app.rect(x + 15, y + 12, width - 30, height - 12);
+//        app.fill(255, 0, 0);
+//        app.rect(x + 15, y + 12, width - 30, height - 12);
         app.copy(image, sx, sy, width, height, x, y, width, height);
     }
 

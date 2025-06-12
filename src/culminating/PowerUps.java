@@ -59,12 +59,12 @@ public class PowerUps {
     public void setY(int y) {
         this.y += y;
     }
-    
+     
     public void draw() {
         if(delay==0){
             x = round(app.random(110, 800));
             y = round(app.random(80, 650));
-            sx = 2*64;
+            sx = round(app.random(0, 4))*64;
         }
         
         app.copy(image, sx, 0, width, height, x, y, width, height);

@@ -29,15 +29,15 @@ public class Nian extends Enemy{
         this.sy = 0;
         this.hurtbox1= new Hurtbox(x,y+140,width/2,height-160);
         this.hurtbox2= new Hurtbox(x+(width/2),y+20,width/2,height-40);
-        this.hp=100;
+        this.hp=1600;
     }
     
     public Hurtbox getHurtbox2(){
         return hurtbox2;
     }
     
-    public void damage() {
-        hp -=15;
+    public void damage(int owch) {
+        hp -=owch;
     }
     
     public void chase(int playerx,int playery, boolean chasing){
@@ -105,6 +105,6 @@ public class Nian extends Enemy{
         app.stroke(0);
         app.rect( x, y+50,400,10,5);
         app.fill(255,0,0);
-        app.rect( x, y+50,4*hp,10,5);
+        app.rect( x, y+50,hp/4,10,5);
     }
 }
