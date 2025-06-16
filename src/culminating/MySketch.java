@@ -3,12 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package culminating;
-
-/**
- *
- * @author 343469953
- */
 //Importing
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -16,7 +12,10 @@ import java.util.Scanner;
 import processing.core.PApplet;
 import processing.core.PImage;
 import processing.core.PApplet;
-
+/**
+ *
+ * @author 343469953
+ */
 public class MySketch extends PApplet {
     // Declaring global variables
     private int screen = 1;
