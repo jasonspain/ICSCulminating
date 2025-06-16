@@ -10,50 +10,55 @@ import processing.core.PApplet;
  *
  * @author jasonwu
  */
-public class Hurtbox {
-    private int x, y;
-    private int height,width;
-    
-
-    public Hurtbox(int x,int y,int width,int height){
-        this.x = x;
-        this.y = y;
+public class Hurtbox extends GameObj {   
+    /*
+    *Constructor for Hurtbox obejct
+    */
+    public Hurtbox(PApplet p, int x, int y, int width, int height) {
+        super(p, x, y);
         this.width = width;
         this.height = height;
     }
     
-    public int getX(){
-        return x;
+    /*
+    *Setter method
+    *@param the x postion
+    */
+    public void setX(int x) {
+        this.x = x;
     }
     
-    public int getY(){
-        return y;
+    /*
+    *Setter method
+    *@param the y postion
+    */
+    public void setY(int y) {
+        this.y= y;
     }
     
-    public int getHeight(){
-        return height;
-    }
-    
-    public int getWidth() {
-        return width;
-    }
-    public void setX(int x){
-        this.x=x;
-    }
-    public void setY(int y){
-        this.y+=y;
-    }
+    /*
+    *method to change the x postion
+    *@param the change in x postion
+    */
     public void changeX(int x) {
-         this.x+=x;
-    }
-
-    public void changeY(int y) {
-        this.y+=y;
+        this.x += x;
     }
     
-    public void draw(PApplet app){
-        app.fill(255, 0, 0, 100); 
+    /*
+    *method to change the y postion
+    *@param the change in y postion
+    */
+    public void changeY(int y) {
+        this.y += y;
+    }
+    
+    /*
+    *Method to draw the Hurtbox object
+    */
+    @Override
+    public void draw() {
+        app.fill(255, 0, 0, 0);
         app.noStroke();
-        app.rect(x,y, width, height);
+        app.rect(x, y, width, height);
     }
 }
